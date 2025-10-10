@@ -69,27 +69,51 @@ export default function EnhancedGardenWebsite() {
   const services = [
     {
       id: "lawn",
-      title: "Lawn Care",
+      title: "Lawn Care & Maintenance",
       icon: <Leaf className="h-8 w-8 text-emerald-600" />,
       description: "Professional lawn maintenance including mowing, edging, and fertilization to keep your grass healthy and vibrant."
     },
     {
-      id: "landscaping",
-      title: "Landscaping",
-      icon: <Trees className="h-8 w-8 text-emerald-600" />,
-      description: "Custom landscape design and installation to transform your outdoor space into a beautiful oasis."
-    },
-    {
       id: "planting",
-      title: "Planting",
+      title: "Plant Maintenance",
       icon: <Sprout className="h-8 w-8 text-emerald-600" />,
       description: "Expert planting services for flowers, shrubs, trees, and seasonal plants to enhance your garden's beauty."
     },
     {
-      id: "maintenance",
-      title: "Garden Maintenance",
+      id: "soil",
+      title: "Soil & Fertilization Services",
       icon: <Flower2 className="h-8 w-8 text-emerald-600" />,
+      description: "Comprehensive soil testing, amendments, and fertilization programs to ensure optimal plant health."
+    },
+    {
+      id: "irrigation",
+      title: "Irrigation Management",
+      icon: <Trees className="h-8 w-8 text-emerald-600" />,
+      description: "Professional irrigation system installation, maintenance, and water management solutions."
+    },
+    {
+      id: "garden-cleaning",
+      title: "Garden Cleaning & Upkeep",
+      icon: <Leaf className="h-8 w-8 text-emerald-600" />,
       description: "Regular garden upkeep including weeding, pruning, and seasonal cleanups to maintain your garden's health."
+    },
+    {
+      id: "vertical-wall",
+      title: "Vertical Wall Maintenance",
+      icon: <Trees className="h-8 w-8 text-emerald-600" />,
+      description: "Specialized care for living walls and vertical gardens, ensuring lush and healthy growth."
+    },
+    {
+      id: "supplies",
+      title: "Plants & Garden Supplies",
+      icon: <Sprout className="h-8 w-8 text-emerald-600" />,
+      description: "Quality plants, tools, and supplies for all your gardening needs."
+    },
+    {
+      id: "specialized",
+      title: "Specialized Services",
+      icon: <Star className="h-8 w-8 text-emerald-600" />,
+      description: "Custom landscaping, design consultation, and unique garden solutions tailored to your needs."
     }
   ];
 
@@ -128,7 +152,7 @@ export default function EnhancedGardenWebsite() {
             <div className="flex items-center group">
               <div className="flex-shrink-0 transition-transform duration-300 group-hover:scale-105">
                 <h1 className="text-2xl font-bold bg-gradient-to-r from-emerald-700 via-green-600 to-lime-600 bg-clip-text text-transparent">
-                  🌿 The Garden Company
+                  The Garden Company
                 </h1>
               </div>
             </div>
@@ -151,7 +175,9 @@ export default function EnhancedGardenWebsite() {
 
             {/* Enhanced CTA Button */}
             <div className="hidden md:block">
-              <button className="relative overflow-hidden rounded-lg bg-gradient-to-r from-emerald-600 via-green-600 to-emerald-700 px-6 py-2 text-white font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-emerald-500/25 group">
+              <button 
+                onClick={() => setShowQuoteModal(true)}
+                className="relative overflow-hidden rounded-lg bg-gradient-to-r from-emerald-600 via-green-600 to-emerald-700 px-6 py-2 text-white font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-emerald-500/25 group">
                 <span className="relative z-10">Free Quote</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-emerald-700 to-green-700 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
               </button>
@@ -184,7 +210,12 @@ export default function EnhancedGardenWebsite() {
                     </a>
                   ))}
                   <div className="pt-3 border-t border-emerald-100">
-                    <button className="w-full rounded-lg bg-gradient-to-r from-emerald-600 to-green-600 px-4 py-3 text-white font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                    <button 
+                      onClick={() => {
+                        setShowQuoteModal(true);
+                        setIsMenuOpen(false);
+                      }}
+                      className="w-full rounded-lg bg-gradient-to-r from-emerald-600 to-green-600 px-4 py-3 text-white font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg">
                       Free Quote
                     </button>
                   </div>
@@ -195,61 +226,78 @@ export default function EnhancedGardenWebsite() {
         </div>
       </header>
 
-      {/* Enhanced Hero Section with Parallax Effect */}
-      <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
-        {/* Animated Background */}
-        <div 
-          className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50"
-          style={{
-            transform: `translateY(${scrollY * 0.5}px)`
-          }}
-        ></div>
-        
-        {/* Floating Elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 left-10 animate-bounce" style={{animationDelay: '0s'}}>🍃</div>
-          <div className="absolute top-40 right-20 animate-bounce" style={{animationDelay: '1s'}}>🌸</div>
-          <div className="absolute bottom-40 left-20 animate-bounce" style={{animationDelay: '2s'}}>🌿</div>
-          <div className="absolute bottom-20 right-10 animate-bounce" style={{animationDelay: '0.5s'}}>🌻</div>
-        </div>
+       {/* Enhanced Hero Section with Parallax Effect */}
+<section id="home" className="relative min-h-screen flex items-center overflow-hidden">
+  {/* Animated Background */}
+  <div 
+    className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50"
+    style={{
+      transform: `translateY(${scrollY * 0.5}px)`
+    }}
+  ></div>
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 items-center">
-            <div className="flex flex-col justify-center space-y-8 animate-in slide-in-from-left-8 duration-1000">
-              <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl lg:text-6xl leading-tight">
-                Transform Your 
-                <span className="block bg-gradient-to-r from-emerald-600 via-green-600 to-lime-600 bg-clip-text text-transparent">
-                  Outdoor Space
-                </span>
-                with Expert Garden Care
-              </h1>
-              <p className="text-xl text-gray-600 max-w-lg">
-                Professional garden maintenance and landscaping services to create and maintain beautiful outdoor spaces that thrive year-round.
-              </p>
-              <div className="flex flex-col gap-4 sm:flex-row">
-                <button className="group relative overflow-hidden rounded-xl bg-gradient-to-r from-emerald-600 via-green-600 to-emerald-700 px-8 py-4 text-white font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-emerald-500/25">
-                  <span className="relative z-10">Get Free Quote</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-700 to-green-700 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
-                </button>
-                <button className="group relative overflow-hidden rounded-xl border-2 border-emerald-600 px-8 py-4 text-emerald-600 font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg">
-                  <span className="relative z-10 group-hover:text-white transition-colors duration-300">View Our Services</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-green-600 scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></div>
-                </button>
-              </div>
-            </div>
-            <div className="flex items-center justify-center animate-in slide-in-from-right-8 duration-1000 delay-300">
-              <div className="relative group">
-                <img 
-                  src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/529cbae5-5e96-4e2f-a5d2-871b38c40481.png" 
-                  alt="Beautiful well-maintained garden with lush green plants and colorful flowers in a residential setting" 
-                  className="rounded-2xl shadow-2xl transition-all duration-500 group-hover:scale-105 group-hover:shadow-3xl group-hover:shadow-emerald-500/20"
-                />
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-emerald-900/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
-              </div>
-            </div>
-          </div>
+  <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20">
+    <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 items-center">
+      <div className="flex flex-col justify-center space-y-8 animate-in slide-in-from-left-8 duration-1000">
+        <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl lg:text-6xl leading-tight">
+          Transform Your Indoor and
+          <span className="block bg-gradient-to-r from-emerald-600 via-green-600 to-lime-600 bg-clip-text text-transparent">
+            Outdoor Spaces
+          </span>
+          with Expert Garden Care
+        </h1>
+        <p className="text-xl text-gray-600 max-w-lg">
+          Professional and personalized garden maintenance and landscaping services to create and maintain beautiful spaces that thrive year-round.
+        </p>
+        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          {/* Primary CTA - Get Free Quote */}
+          <button 
+            onClick={() => setShowQuoteModal(true)}
+            className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-lg bg-gradient-to-r from-emerald-600 to-green-600 px-6 py-3 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/30 hover:scale-[1.02] active:scale-95">
+            <svg className="w-4 h-4 transition-transform duration-300 group-hover:rotate-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            <span>Get Free Quote</span>
+            <div className="absolute inset-0 -z-10 bg-gradient-to-r from-emerald-700 to-green-700 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+          </button>
+
+          {/* Secondary CTA - View Services */}
+          <button 
+            onClick={() => document.getElementById('services').scrollIntoView({ behavior: 'smooth' })}
+            className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-lg bg-white border-2 border-emerald-600 px-6 py-3 text-sm font-semibold text-emerald-700 shadow-sm transition-all duration-300 hover:shadow-md hover:scale-[1.02] active:scale-95">
+            <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+            <span className="group-hover:text-emerald-600 transition-colors duration-200">View Services</span>
+          </button>
+
+          {/* WhatsApp CTA */}
+          <a
+            href="https://wa.me/9157482008?text=Hello%21%20I%E2%80%99m%20interested%20in%20learning%20more%20about%20your%20gardening%20services.%20Could%20you%20please%20share%20details%20about%20the%20packages%20you%20offer%2C%20along%20with%20pricing%20and%20availability%3F%20I%20look%20forward%20to%20bringing%20more%20beauty%20and%20greenery%20to%20my%20space%20with%20your%20help."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-lg bg-gradient-to-r from-green-500 to-green-600 px-6 py-3 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:shadow-lg hover:shadow-green-500/30 hover:scale-[1.02] active:scale-95">
+            <svg className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
+            <span>Chat on WhatsApp</span>
+            <div className="absolute inset-0 -z-10 bg-gradient-to-r from-green-600 to-green-700 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+          </a>
         </div>
-      </section>
+      </div>
+      <div className="flex items-center justify-center animate-in slide-in-from-right-8 duration-1000 delay-300">
+        <div className="relative group">
+          <img 
+            src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/529cbae5-5e96-4e2f-a5d2-871b38c40481.png" 
+            alt="Beautiful well-maintained garden with lush green plants and colorful flowers in a residential setting" 
+            className="rounded-2xl shadow-2xl transition-all duration-500 group-hover:scale-105 group-hover:shadow-3xl group-hover:shadow-emerald-500/20"
+          />
+          <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-emerald-900/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* Enhanced Services Section */}
       <section id="services" className="py-20 bg-white relative overflow-hidden">
@@ -258,7 +306,7 @@ export default function EnhancedGardenWebsite() {
           <div className="text-center mb-16 animate-in fade-in-50 duration-1000">
             <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl mb-4">Our Services</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-emerald-500 to-green-500 mx-auto mb-6"></div>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">Comprehensive garden care solutions for residential and commercial properties</p>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">A one-stop solution for all your garden needs, you ask we provide!</p>
           </div>
 
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
@@ -304,7 +352,7 @@ export default function EnhancedGardenWebsite() {
               <h2 className="mb-6 text-3xl font-bold text-gray-900 sm:text-4xl">About The Garden Company</h2>
               <div className="w-16 h-1 bg-gradient-to-r from-emerald-500 to-green-500 mb-6"></div>
               <p className="mb-6 text-lg text-gray-600 leading-relaxed">
-                With over 15 years of experience, The Garden Company has been transforming outdoor spaces across the community. 
+                We are a team of experts with over 15 years of experience, transforming outdoor spaces across the community. 
                 Our team of certified horticulturists and landscape professionals is dedicated to creating and maintaining 
                 beautiful, sustainable gardens that enhance your property's value and your quality of life.
               </p>
@@ -470,10 +518,14 @@ export default function EnhancedGardenWebsite() {
                       className="w-full rounded-xl border border-gray-300 px-4 py-3 transition-all duration-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 hover:border-emerald-400"
                     >
                       <option value="">Select a service</option>
-                      <option value="lawn">Lawn Care</option>
-                      <option value="landscaping">Landscaping</option>
-                      <option value="planting">Planting</option>
-                      <option value="maintenance">Garden Maintenance</option>
+                      <option value="lawn">Lawn Care & Maintenance</option>
+                      <option value="planting">Plant Maintenance</option>
+                      <option value="soil">Soil & Fertilization Services</option>
+                      <option value="irrigation">Irrigation Management</option>
+                      <option value="cleaning">Garden Cleaning & Upkeep</option>
+                      <option value="vertical">Vertical Wall Maintenance</option>
+                      <option value="supplies">Plants & Garden Supplies</option>
+                      <option value="specialized">Specialized Services</option>
                     </select>
                   </div>
                   
@@ -510,7 +562,7 @@ export default function EnhancedGardenWebsite() {
           <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
             <div className="col-span-1 md:col-span-2 animate-in slide-in-from-left-8 duration-1000">
               <h3 className="text-2xl font-bold bg-gradient-to-r from-emerald-400 to-green-400 bg-clip-text text-transparent mb-4">
-                🌿 The Garden Company
+                The Garden Company
               </h3>
               <p className="mb-6 text-gray-300 leading-relaxed">
                 Professional garden maintenance and landscaping services creating beautiful outdoor spaces since 2008.
@@ -530,7 +582,7 @@ export default function EnhancedGardenWebsite() {
             <div className="animate-in slide-in-from-bottom-8 duration-1000 delay-200">
               <h4 className="font-semibold mb-4 text-emerald-400">Services</h4>
               <ul className="space-y-2">
-                {["Lawn Care", "Landscaping", "Planting", "Garden Maintenance", "Seasonal Cleanup"].map((service, index) => (
+                {["Lawn Care & Maintenance", "Plant Maintenance", "Soil & Fertilization", "Irrigation Management", "Garden Cleaning"].map((service, index) => (
                   <li key={index}>
                     <a href="#" className="text-gray-300 hover:text-emerald-400 transition-colors duration-300 hover:translate-x-1 inline-block">
                       {service}
@@ -636,10 +688,14 @@ export default function EnhancedGardenWebsite() {
                   className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
                 >
                   <option value="">Select Service *</option>
-                  <option value="lawn">Lawn Care</option>
-                  <option value="landscaping">Landscaping</option>
-                  <option value="planting">Planting</option>
-                  <option value="maintenance">Garden Maintenance</option>
+                  <option value="lawn">Lawn Care & Maintenance</option>
+                  <option value="planting">Plant Maintenance</option>
+                  <option value="soil">Soil & Fertilization Services</option>
+                  <option value="irrigation">Irrigation Management</option>
+                  <option value="cleaning">Garden Cleaning & Upkeep</option>
+                  <option value="vertical">Vertical Wall Maintenance</option>
+                  <option value="supplies">Plants & Garden Supplies</option>
+                  <option value="specialized">Specialized Services</option>
                 </select>
                 <textarea
                   placeholder="Brief description of your project..."
@@ -697,7 +753,6 @@ export default function EnhancedGardenWebsite() {
                         className="text-2xl hover:scale-110 transition-transform duration-200 focus:outline-none"
                         onClick={(e) => {
                           e.preventDefault();
-                          // Handle star rating
                           const stars = document.querySelectorAll('.rating-star');
                           stars.forEach((star, index) => {
                             star.textContent = index < rating ? '⭐' : '☆';
@@ -769,7 +824,6 @@ export default function EnhancedGardenWebsite() {
           animation-delay: 3s;
         }
 
-        /* Custom scrollbar */
         ::-webkit-scrollbar {
           width: 8px;
         }
