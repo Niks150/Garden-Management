@@ -6,9 +6,6 @@ import {
   Star,
   ChevronRight,
   Users,
-  Shield,
-  Clock,
-  X,
   Award,
   Heart,
   Menu,
@@ -16,18 +13,21 @@ import {
   Droplet,
   Bug,
   Palette,
-  ArrowUp
+  ArrowUp,
+  X,
+  Clock,
+  CheckCircle,
+  ArrowRight
 } from "lucide-react";
 
 export default function HomePage() {
   const [scrollY, setScrollY] = useState(0);
   const [showQuoteModal, setShowQuoteModal] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
-  const heroImage = "https://images.pexels.com/photos/212324/pexels-photo-212324.jpeg?auto=compress&cs=tinysrgb&w=1920";
-  const aboutImage = "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a828416e-b852-403f-85a4-41c436ab9735.png";
+  const heroImage = "https://images.pexels.com/photos/1105019/pexels-photo-1105019.jpeg?auto=compress&cs=tinysrgb&w=1920";
+  const aboutImage = "https://images.pexels.com/photos/1209978/pexels-photo-1209978.jpeg?auto=compress&cs=tinysrgb&w=1920";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,371 +52,336 @@ export default function HomePage() {
 
   const services = [
     {
-      id: "plant",
+      id: 1,
       title: "Plant Maintenance",
-      icon: <Sprout className="h-8 w-8 text-white" />,
-      description: "Trimming, pruning and shaping plants, health monitoring, disease prevention",
-      details: ["Trimming & pruning", "Health monitoring", "Indoor plant care", "Fertilizer scheduling"],
-      color: "from-emerald-700 via-emerald-600 to-green-600"
+      icon: <Sprout className="h-6 w-6 text-emerald-700" />,
+      items: [
+        "Trimming, pruning, and shaping plants",
+        "Health checks and disease prevention",
+        "Indoor plant care",
+        "Re-potting and soil replacement",
+        "Fertilizer and nutrient scheduling",
+        "Plant staking and support installation",
+        "Pest and weed fungus treatment (eco-friendly options)",
+        "Growth monitoring and record keeping"
+      ],
+      color: "bg-emerald-50"
     },
     {
-      id: "lawn",
+      id: 2,
       title: "Lawn Care & Maintenance",
-      icon: <Leaf className="h-8 w-8 text-white" />,
-      description: "Regular mowing, edging, fertilization and soil improvement",
-      details: ["Mowing & edging", "Soil improvement", "Disease control", "Lawn aeration"],
-      color: "from-green-700 via-green-600 to-emerald-600"
+      icon: <Leaf className="h-6 w-6 text-emerald-700" />,
+      items: [
+        "Regular mowing and edging",
+        "Fertilization and soil improvement",
+        "Pest and weed control",
+        "Lawn aeration",
+        "Top dressing and leveling",
+        "Grass re-seeding and lawn rejuvenation",
+        "Irrigation adjustment for lawns",
+        "Disease and fungus management",
+        "Seasonal lawn restoration (summer/winter prep)",
+        "Organic lawn treatment options"
+      ],
+      color: "bg-green-50"
     },
     {
-      id: "soil",
-      title: "Soil & Fertilization",
-      icon: <Flower2 className="h-8 w-8 text-white" />,
-      description: "Soil testing, organic and chemical fertilization, nutrient customization",
-      details: ["Soil testing", "Chemical fertilization", "Nutrient plans", "pH testing"],
-      color: "from-teal-700 via-emerald-700 to-green-700"
+      id: 3,
+      title: "Soil & Fertilization Services",
+      icon: <Flower2 className="h-6 w-6 text-emerald-700" />,
+      items: [
+        "Soil testing and improvement",
+        "Organic and chemical fertilization",
+        "Composting and mulching",
+        "pH correction and soil balancing",
+        "Application of natural soil boosters",
+        "Vermicomposting setup and maintenance",
+        "Customized nutrient plans for different plant types",
+        "Topsoil renewal and enrichment",
+        "Preventive soil disease management",
+        "Green waste composting solutions"
+      ],
+      color: "bg-teal-50"
     },
     {
-      id: "irrigation",
+      id: 4,
       title: "Irrigation Management",
-      icon: <Droplet className="h-8 w-8 text-white" />,
-      description: "Drip irrigation installation, maintenance, and water conservation",
-      details: ["Watering schedules", "Drip installation", "Water conservation", "Automated systems"],
-      color: "from-cyan-700 via-teal-700 to-emerald-700"
+      icon: <Droplet className="h-6 w-6 text-emerald-700" />,
+      items: [
+        "Watering schedules for optimal growth",
+        "Drip irrigation installation and maintenance",
+        "Moisture monitoring and water conservation tips",
+        "Sprinkler system installation",
+        "Automated irrigation setup and programming",
+        "Leak detection and water flow checks",
+        "Irrigation layout planning for new gardens"
+      ],
+      color: "bg-cyan-50"
     },
     {
-      id: "garden-upkeep",
-      title: "Garden Upkeep & Styling",
-      icon: <Palette className="h-8 w-8 text-white" />,
-      description: "Seasonal cleanup, mulching, dead plant removal and decor arrangement",
-      details: ["Garden cleanup", "Mulching", "Plant removal", "Decor arrangement"],
-      color: "from-lime-700 via-green-700 to-emerald-700"
+      id: 5,
+      title: "Garden Cleaning & Upkeep",
+      icon: <Palette className="h-6 w-6 text-emerald-700" />,
+      items: [
+        "Removal of fallen leaves, weeds, and debris",
+        "Seasonal garden cleanup",
+        "Maintaining flower bed and shrubs",
+        "Composting of green waste",
+        "Pressure washing of garden paths and hardscapes",
+        "Dead plant removal and disposal",
+        "Cleaning garden furniture and ornaments",
+        "Regular inspection for snakes or other pests (if applicable)",
+        "Cobweb removal and outdoor lighting cleanup"
+      ],
+      color: "bg-lime-50"
     },
     {
-      id: "pest",
-      title: "Pest & Disease Management",
-      icon: <Bug className="h-8 w-8 text-white" />,
-      description: "Garden redesign, planning, and specialized landscaping services",
-      details: ["Garden redesign", "Plant placement", "Landscape design", "Installation"],
-      color: "from-amber-700 via-green-700 to-emerald-700"
+      id: 6,
+      title: "Landscaping Assistance",
+      subtitle: "(Optional for Future Expansion)",
+      icon: <Bug className="h-6 w-6 text-emerald-700" />,
+      items: [
+        "Garden design planning",
+        "Plant selection and placement advice",
+        "Hardscape support (paths, borders, planters)",
+        "Landscape lighting installation and planning",
+        "Artificial turf installation",
+        "Water features (fountains, ponds, mini waterfalls)",
+        "Rock garden and zen garden setup",
+        "Vertical garden design and maintenance",
+        "Outdoor seating or patio garden ideas",
+        "Landscape maintenance"
+      ],
+      color: "bg-amber-50"
     },
     {
-      id: "commercial",
-      title: "Commercial & Corporate Care",
-      icon: <Briefcase className="h-8 w-8 text-white" />,
-      description: "Expert landscaping and corporate property maintenance programs",
-      details: ["Corporate landscaping", "Bulk watering", "Landscape care", "Soil maintenance"],
-      color: "from-emerald-800 via-emerald-700 to-green-700"
+      id: 7,
+      title: "Commercial & Industrial Services",
+      icon: <Briefcase className="h-6 w-6 text-emerald-700" />,
+      items: [
+        "Landscape Care – Expert upkeep of lawns, trees, and plants for a clean, green look",
+        "Irrigation Systems – Efficient watering for healthy, thriving landscapes",
+        "Plant Health Care – Regular fertilization and pest control for strong growth",
+        "Outdoor Cleaning – Neat pathways and well-maintained surroundings",
+        "Indoor Plants/care – Fresh, vibrant plants for offices and interiors",
+        "Annual Maintenance Programs – Customized contracts for reliable, worry-free garden upkeep"
+      ],
+      color: "bg-emerald-50"
     },
     {
-      id: "specialized",
+      id: 8,
       title: "Specialized Services",
-      icon: <Star className="h-8 w-8 text-white" />,
-      description: "Indoor/outdoor plants care, balloon gardens and community maintenance",
-      details: ["Plant care", "Balloon gardens", "Community maintenance", "Garden sourcing"],
-      color: "from-teal-700 via-emerald-700 to-green-700"
+      subtitle: "(Optional / Premium Add-ons)",
+      icon: <Star className="h-6 w-6 text-emerald-700" />,
+      items: [
+        "Indoor office plants care",
+        "Balcony and terrace gardens",
+        "Community garden maintenance (societies/colonies)",
+        "Nursery plant sourcing and delivery",
+        "Organic kitchen garden setup and upkeep",
+        "Seasonal decoration (Christmas, Diwali, etc.) using plants"
+      ],
+      color: "bg-teal-50"
     }
   ];
 
-  const stats = [
-    { icon: <Users className="h-6 w-6" />, value: "2000+", label: "Happy Clients" },
-    { icon: <Award className="h-6 w-6" />, value: "15+", label: "Years Experience" },
-    { icon: <Star className="h-6 w-6" />, value: "5000+", label: "Projects Done" },
-    { icon: <Heart className="h-6 w-6" />, value: "100%", label: "Satisfaction" }
-  ];
-
   return (
-    <main className="min-h-screen bg-gradient-to-br from-neutral-50 via-emerald-50/30 to-green-50/40">
+    <main className="min-h-screen bg-white">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Playfair+Display:ital@0;1&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600&display=swap');
         
         * {
-          font-family: 'Inter', system-ui, -apple-system, sans-serif;
+          font-family: 'Inter', -apple-system, sans-serif;
         }
         
-        h1, h2, h3, h4, h5, h6 {
-          font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
-        }
-        
-        .curvy-text {
+        .font-serif {
           font-family: 'Playfair Display', serif;
-          font-style: italic;
-          letter-spacing: -0.02em;
         }
         
-        .glass-nav {
-          background: rgba(255, 255, 255, 0.75);
-          backdrop-filter: blur(20px) saturate(180%);
-          -webkit-backdrop-filter: blur(20px) saturate(180%);
-          border-bottom: 1px solid rgba(5, 150, 105, 0.1);
-          box-shadow: 0 4px 24px rgba(11, 77, 44, 0.08);
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
         
-        .glass-nav-scrolled {
-          background: rgba(255, 255, 255, 0.85);
-          backdrop-filter: blur(24px) saturate(200%);
-          -webkit-backdrop-filter: blur(24px) saturate(200%);
-          border-bottom: 1px solid rgba(5, 150, 105, 0.15);
-          box-shadow: 0 8px 32px rgba(11, 77, 44, 0.12);
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
         }
         
-        .glass-card {
-          background: rgba(255, 255, 255, 0.6);
-          backdrop-filter: blur(16px) saturate(150%);
-          -webkit-backdrop-filter: blur(16px) saturate(150%);
-          border: 1px solid rgba(5, 150, 105, 0.15);
+        .animate-fade-in-up {
+          animation: fadeInUp 0.8s ease-out forwards;
         }
         
-        .glass-modal {
-          background: rgba(255, 255, 255, 0.95);
-          backdrop-filter: blur(24px) saturate(200%);
-          -webkit-backdrop-filter: blur(24px) saturate(200%);
-          border: 1px solid rgba(5, 150, 105, 0.2);
+        .animate-fade-in {
+          animation: fadeIn 1s ease-out forwards;
         }
+        
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+        
+        .text-base { font-size: 16px; }
+        .text-sm { font-size: 14px; }
+        .text-xs { font-size: 12px; }
       `}</style>
 
-      {/* NAVIGATION BAR */}
-      <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
-        scrollY > 50 ? 'glass-nav-scrolled' : 'glass-nav'
-      }`}>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            <div className="flex items-center gap-3 group cursor-pointer">
-              <div className="w-11 h-11 bg-gradient-to-br from-emerald-700 via-emerald-600 to-green-600 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-600/30 group-hover:shadow-xl group-hover:shadow-emerald-600/40 transition-all duration-300 group-hover:scale-105 group-hover:rotate-3">
-                <Sprout className="h-6 w-6 text-white" />
-              </div>
-              <div>
-                <div className="text-xl font-bold bg-gradient-to-r from-emerald-800 via-emerald-700 to-green-700 bg-clip-text text-transparent">
-                  The Garden Company
-                </div>
-              </div>
-            </div>
-
-            <div className="hidden lg:flex items-center gap-8">
-              {['Home', 'Gallery', 'About Us', 'Contacts'].map((item) => (
-                <a 
-                  key={item}
-                  href="#" 
-                  className="text-emerald-800 hover:text-emerald-600 font-semibold text-sm transition-colors duration-300"
-                >
-                  {item}
-                </a>
-              ))}
-            </div>
-
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => setShowQuoteModal(true)}
-                className="hidden sm:inline-block px-6 py-2.5 bg-gradient-to-r from-emerald-700 to-emerald-600 text-white rounded-xl font-semibold text-sm hover:shadow-xl hover:shadow-emerald-600/30 hover:scale-105 transition-all duration-300"
-              >
-                Get Quote
-              </button>
-              
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-2.5 hover:bg-emerald-50 rounded-xl transition-colors"
-              >
-                <Menu className="h-6 w-6 text-emerald-800" />
-              </button>
-            </div>
-          </div>
-
-          {mobileMenuOpen && (
-            <div className="lg:hidden pb-4 glass-card rounded-b-2xl mt-2">
-              <div className="space-y-2 pt-4 px-4">
-                {['Home', 'Gallery', 'About Us', 'Contacts'].map((item) => (
-                  <a 
-                    key={item}
-                    href="#" 
-                    className="block px-5 py-3 text-emerald-800 hover:bg-gradient-to-r hover:from-emerald-700 hover:to-emerald-600 hover:text-white rounded-xl transition-all font-semibold text-sm"
-                  >
-                    {item}
-                  </a>
-                ))}
-                <button
-                  onClick={() => {
-                    setShowQuoteModal(true);
-                    setMobileMenuOpen(false);
-                  }}
-                  className="w-full mt-2 px-5 py-3 bg-gradient-to-r from-emerald-700 to-emerald-600 text-white rounded-xl font-semibold text-sm"
-                >
-                  Get Quote
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-      </nav>
-
       {/* HERO SECTION */}
-      <section className="relative min-h-screen flex items-end overflow-hidden pt-20">
+      <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-800 to-green-900">
         <div 
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-center opacity-30"
           style={{
             backgroundImage: `url('${heroImage}')`,
-            transform: `scale(1.1) translateY(${scrollY * 0.5}px)`,
-            filter: 'brightness(0.6)'
+            transform: `translateY(${scrollY * 0.5}px)`
           }}
         />
-        
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-950/60 via-green-900/50 to-emerald-950/70" />
-        <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/40 via-transparent to-transparent" />
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pb-16">
-          <div className="max-w-2xl">
-            <div className="flex items-center gap-3 mb-5">
-              <div className="flex -space-x-2">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-green-500 border-2 border-white flex items-center justify-center shadow-lg">
-                    <span className="text-white font-bold text-xs">{i}K</span>
-                  </div>
-                ))}
-              </div>
-              
-              <div className="flex items-center gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-emerald-400 text-emerald-400" />
-                ))}
-                <span className="text-emerald-200 text-sm font-semibold ml-2">From 2000+ ratings</span>
-              </div>
+        <div className="container mx-auto px-6 lg:px-12 relative z-10 py-20">
+          <div className="max-w-3xl opacity-0 animate-fade-in-up">
+            <div className="inline-block mb-6 px-5 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 text-emerald-100 text-sm font-medium tracking-wide opacity-0 animate-fade-in delay-100">
+              Premium Garden Services
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
+            <h1 className="font-serif text-5xl md:text-6xl font-medium text-white mb-6 leading-tight italic opacity-0 animate-fade-in-up delay-200">
               Transform Your Indoor and Outdoor Spaces
-              <br />
-              <span className="bg-gradient-to-r from-emerald-400 via-green-300 to-emerald-300 bg-clip-text text-transparent">
-                with Expert Garden Care!
-              </span>
             </h1>
             
-            <p className="text-base text-emerald-50/90 mb-6 leading-relaxed font-medium max-w-xl">
+            <p className="text-base text-emerald-100/90 mb-8 leading-relaxed opacity-0 animate-fade-in-up delay-300">
               Professional and personalized garden maintenance for your indoor and outdoor green spaces — from homes to commercial properties.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3">
+            <div className="flex flex-col sm:flex-row gap-4 opacity-0 animate-fade-in-up delay-400">
               <button 
                 onClick={() => setShowQuoteModal(true)}
-                className="px-8 py-4 bg-gradient-to-r from-emerald-600 to-green-600 text-white rounded-xl font-bold text-base hover:shadow-2xl hover:shadow-emerald-600/40 transition-all duration-300 hover:scale-105"
+                className="group px-8 py-3 bg-white text-emerald-900 rounded-full font-semibold text-sm transition-all duration-300 hover:bg-emerald-50 flex items-center justify-center gap-2"
               >
                 Get Free Quote
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </button>
 
               <a
                 href="https://wa.me/9016372258"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-4 glass-card text-emerald-900 rounded-xl font-bold text-base hover:shadow-xl transition-all duration-300 text-center border-2 border-emerald-200"
+                className="px-8 py-3 border-2 border-white/30 backdrop-blur-sm text-white rounded-full font-semibold text-sm hover:bg-white/10 transition-colors text-center"
               >
                 Chat on WhatsApp
               </a>
+            </div>
+
+            <div className="mt-12 text-emerald-200/60 text-xs tracking-widest opacity-0 animate-fade-in delay-500">
+              (Scroll down)
             </div>
           </div>
         </div>
       </section>
 
-
-
-      {/* SERVICES SECTION */}
-      <section className="py-20 bg-gradient-to-b from-neutral-50 to-emerald-50/40">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="inline-block px-5 py-2 glass-card text-emerald-800 rounded-full font-bold text-sm mb-4">
+      {/* TRANSITION SECTION */}
+      <section className="py-32 bg-white">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="max-w-4xl mx-auto text-center">
+            <p className="text-sm text-gray-500 mb-4 tracking-widest">(01 Services)</p>
+            <h2 className="font-serif text-4xl md:text-5xl font-medium text-gray-900 mb-6 italic">
               Our Services
-            </span>
-            <h2 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-emerald-800 via-emerald-700 to-green-700 bg-clip-text text-transparent mb-4">
-              A One-Stop Solution for All Your Garden Needs
             </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto font-medium">
-              Professional and personalized garden maintenance services
+            <p className="text-base text-gray-600 italic">
+              A one-stop solution for all your garden needs, you ask we provide!
             </p>
           </div>
+        </div>
+      </section>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {services.map((service) => (
+      {/* SERVICES GRID */}
+      <section className="py-20 bg-gradient-to-b from-white to-gray-50">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {services.map((service, index) => (
               <div 
                 key={service.id}
-                className="group glass-card rounded-2xl p-6 hover:shadow-2xl hover:shadow-emerald-600/20 transition-all duration-300 hover:-translate-y-2"
+                className={`group ${service.color} rounded-2xl p-6 border border-gray-200 hover:shadow-xl transition-all duration-300`}
+                style={{
+                  animation: `fadeInUp 0.6s ease-out forwards`,
+                  animationDelay: `${index * 0.1}s`,
+                  opacity: 0
+                }}
               >
-                <div className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br ${service.color} rounded-2xl mb-5 shadow-xl`}>
-                  {service.icon}
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm">
+                    {service.icon}
+                  </div>
                 </div>
                 
-                <h3 className="text-xl font-bold text-emerald-900 mb-3 group-hover:text-emerald-700 transition-colors">
-                  {service.title}
+                <h3 className="text-base font-semibold text-gray-900 mb-2">
+                  {service.id}. {service.title}
                 </h3>
                 
-                <p className="text-sm text-gray-600 leading-relaxed mb-4 font-medium">
-                  {service.description}
-                </p>
-
-                <ul className="text-xs text-gray-500 space-y-2 mb-5">
-                  {service.details.map((detail, idx) => (
-                    <li key={idx} className="flex gap-2 items-center">
-                      <span className="text-emerald-600 font-bold text-base">•</span>
-                      <span className="font-medium">{detail}</span>
+                {service.subtitle && (
+                  <p className="text-xs text-gray-500 mb-3 italic">{service.subtitle}</p>
+                )}
+                
+                <ul className="space-y-1.5">
+                  {service.items.map((item, idx) => (
+                    <li key={idx} className="text-xs text-gray-600 flex items-start gap-2">
+                      <span className="w-1 h-1 bg-emerald-600 rounded-full mt-1.5 flex-shrink-0"></span>
+                      <span>{item}</span>
                     </li>
                   ))}
                 </ul>
-                
-                <button className="flex items-center text-emerald-700 font-bold text-sm hover:text-emerald-600 transition-colors">
-                  Learn More 
-                  <ChevronRight className="h-4 w-4 ml-1" />
-                </button>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ABOUT SECTION - MATCHING SCREENSHOT */}
-      <section className="py-20 bg-gradient-to-br from-emerald-50/60 to-green-50/40">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <span className="inline-block px-5 py-2 glass-card text-emerald-800 rounded-full font-bold text-sm mb-4">
-              About Us
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left Side - Image with rounded border */}
-            <div className="order-2 lg:order-1">
-              <div className="relative">
-                <div className="rounded-3xl border-4 border-emerald-600 overflow-hidden shadow-2xl bg-white">
-                  <img 
-                    src="https://images.pexels.com/photos/158636/background-beautiful-beauty-bloom-158636.jpeg"
-                    alt="Our expert garden team at work" 
-                    className="w-full h-full object-cover rounded-2xl"
-                    style={{
-                      aspectRatio: '3/2'
-                    }}
-                  />
-                  
-                  <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/20 via-transparent to-transparent pointer-events-none rounded-2xl"></div>
-                </div>
-
-                {/* Floating badge - positioned at bottom right */}
-                <div className="absolute -bottom-6 -right-6 glass-card rounded-full p-4 shadow-2xl border-2 border-white">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-r from-emerald-600 to-green-600 flex items-center justify-center flex-shrink-0">
-                      <Star className="h-6 w-6 text-white fill-white" />
-                    </div>
-                    
-                  </div>
-                </div>
-              </div>
-            </div>
+      {/* ABOUT SECTION WITH IMAGE */}
+      <section className="py-32 bg-white relative overflow-hidden">
+        <div 
+          className="absolute right-0 top-0 w-1/2 h-full bg-cover bg-center"
+          style={{
+            backgroundImage: `url('${aboutImage}')`,
+            clipPath: 'polygon(10% 0, 100% 0, 100% 100%, 0% 100%)'
+          }}
+        />
+        
+        <div className="container mx-auto px-6 lg:px-12 relative z-10">
+          <div className="max-w-xl">
+            <p className="text-sm text-gray-500 mb-4 tracking-widest">(02 About)</p>
             
-            {/* Right Side - Content */}
-            <div className="order-1 lg:order-2">
-              <h2 className="curvy-text text-5xl sm:text-6xl font-bold text-emerald-800 mb-8 leading-tight">
-                About The Garden Company
-              </h2>
+            <h2 className="font-serif text-4xl md:text-5xl font-medium text-gray-900 mb-6 italic">
+              About Us
+            </h2>
 
-              <p className="text-lg text-gray-700 leading-relaxed mb-10 font-medium italic text-justify">
-                We are a team of experts with over 15 years of experience, transforming outdoor spaces across the community. Our team of certified horticulturists and landscape professionals is dedicated to creating and maintaining beautiful, sustainable gardens that enhance your property's value and your quality of life.
-              </p>
+            <p className="text-base text-gray-600 leading-relaxed mb-8">
+              At The Garden Company, we provide A-to-Z garden care services, dedicated to creating and maintaining beautiful, healthy, and sustainable green spaces. Our passionate team offers complete services for— lawns, vertical walls, garden maintenance, plant health, and designer gardens too. We also have custom packages for small home gardens to large commercial properties. With a focus on quality, reliability, and precision, we ensure your garden remains vibrant, thriving, and perfectly cared for all year round.
+            </p>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div className="flex items-center gap-3 p-4 bg-emerald-50 rounded-xl">
+                <Users className="h-5 w-5 text-emerald-700" />
+                <span className="text-xs text-gray-700 font-medium">Expert Team</span>
+              </div>
               
-              {/* Features Grid - 2x2 layout */}
+              <div className="flex items-center gap-3 p-4 bg-emerald-50 rounded-xl">
+                <Clock className="h-5 w-5 text-emerald-700" />
+                <span className="text-xs text-gray-700 font-medium">24/5 Support</span>
+              </div>
               
+              <div className="flex items-center gap-3 p-4 bg-emerald-50 rounded-xl">
+                <Clock className="h-5 w-5 text-emerald-700" />
+                <span className="text-xs text-gray-700 font-medium">Timely Service</span>
+              </div>
+              
+              <div className="flex items-center gap-3 p-4 bg-emerald-50 rounded-xl">
+                <Star className="h-5 w-5 text-emerald-700" />
+                <span className="text-xs text-gray-700 font-medium">Quality Service</span>
+              </div>
             </div>
           </div>
         </div>
@@ -424,52 +389,48 @@ export default function HomePage() {
 
       {/* QUOTE MODAL */}
       {showQuoteModal && (
-        <div className="fixed inset-0 bg-emerald-950/60 backdrop-blur-md flex items-center justify-center z-50 p-4">
-          <div className="glass-modal rounded-3xl p-8 max-w-md w-full shadow-2xl">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fade-in">
+          <div className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl animate-fade-in-up">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-3xl font-bold bg-gradient-to-r from-emerald-800 to-green-700 bg-clip-text text-transparent">
-                Get Free Quote
+              <h3 className="font-serif text-2xl text-gray-900 italic">
+                Request a Free Quote
               </h3>
               <button 
                 onClick={() => setShowQuoteModal(false)} 
-                className="p-2 hover:bg-emerald-100 rounded-full transition-colors"
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
               >
-                <X className="h-6 w-6 text-emerald-800" />
+                <X className="h-5 w-5 text-gray-900" />
               </button>
             </div>
             
             {formSubmitted ? (
-              <div className="text-center py-10">
-                <div className="w-20 h-20 bg-gradient-to-br from-emerald-600 to-green-600 rounded-full flex items-center justify-center mx-auto mb-5 shadow-xl">
-                  <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <h4 className="text-2xl font-bold text-emerald-800 mb-2">Success!</h4>
-                <p className="text-gray-600 font-medium">We'll contact you within 2 hours.</p>
+              <div className="text-center py-12">
+                <CheckCircle className="w-16 h-16 text-emerald-600 mx-auto mb-4" />
+                <h4 className="text-xl font-semibold text-gray-900 mb-2">Success!</h4>
+                <p className="text-sm text-gray-600">We'll contact you within 2 hours.</p>
               </div>
             ) : (
               <div className="space-y-4">
                 <input 
                   type="text" 
-                  placeholder="Your Name *" 
-                  className="w-full rounded-xl glass-card text-emerald-900 placeholder-gray-500 px-5 py-3 text-sm font-medium focus:ring-2 focus:ring-emerald-600 transition-all" 
-                />
-                
-                <input 
-                  type="email" 
-                  placeholder="Email Address *" 
-                  className="w-full rounded-xl glass-card text-emerald-900 placeholder-gray-500 px-5 py-3 text-sm font-medium focus:ring-2 focus:ring-emerald-600 transition-all" 
+                  placeholder="Full Name" 
+                  className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-900 placeholder-gray-500 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20 transition-all outline-none" 
                 />
                 
                 <input 
                   type="tel" 
-                  placeholder="Phone Number *" 
-                  className="w-full rounded-xl glass-card text-emerald-900 placeholder-gray-500 px-5 py-3 text-sm font-medium focus:ring-2 focus:ring-emerald-600 transition-all" 
+                  placeholder="Phone Number" 
+                  className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-900 placeholder-gray-500 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20 transition-all outline-none" 
                 />
                 
-                <select className="w-full rounded-xl glass-card text-emerald-900 px-5 py-3 text-sm font-medium focus:ring-2 focus:ring-emerald-600 transition-all">
-                  <option value="">Select Service *</option>
+                <input 
+                  type="text" 
+                  placeholder="Address" 
+                  className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-900 placeholder-gray-500 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20 transition-all outline-none" 
+                />
+                
+                <select className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-900 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20 transition-all outline-none">
+                  <option value="">Service interested in</option>
                   {services.map(s => (
                     <option key={s.id} value={s.id}>
                       {s.title}
@@ -478,16 +439,16 @@ export default function HomePage() {
                 </select>
                 
                 <textarea 
-                  placeholder="Tell us about your project..." 
+                  placeholder="Message" 
                   rows={4} 
-                  className="w-full rounded-xl glass-card text-emerald-900 placeholder-gray-500 px-5 py-3 text-sm font-medium focus:ring-2 focus:ring-emerald-600 transition-all" 
+                  className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-900 placeholder-gray-500 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20 transition-all outline-none" 
                 />
                 
                 <button 
                   onClick={handleQuoteSubmit} 
-                  className="w-full rounded-xl bg-gradient-to-r from-emerald-700 to-emerald-600 px-5 py-4 text-white font-bold text-base hover:shadow-2xl hover:shadow-emerald-600/40 transition-all duration-300 hover:scale-105"
+                  className="w-full rounded-full bg-emerald-900 px-8 py-3 text-white font-semibold text-sm hover:bg-emerald-800 transition-colors"
                 >
-                  Submit Request
+                  Get Free Quote
                 </button>
               </div>
             )}
@@ -495,13 +456,13 @@ export default function HomePage() {
         </div>
       )}
 
-      {/* Scroll to Top Button */}
+      {/* Scroll to Top */}
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-emerald-700 to-green-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center z-30"
+          className="fixed bottom-8 right-8 w-12 h-12 bg-emerald-900 text-white rounded-full shadow-lg hover:bg-emerald-800 transition-colors flex items-center justify-center z-30"
         >
-          <ArrowUp className="h-6 w-6" />
+          <ArrowUp className="h-5 w-5" />
         </button>
       )}
     </main>
