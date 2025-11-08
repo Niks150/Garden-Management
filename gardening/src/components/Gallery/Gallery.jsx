@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
+import { Link, useLocation } from 'react-router-dom';
 import { 
   Grid, List, X, Menu, Phone, Mail, MapPin, ArrowUp, Moon, Sun,
   ChevronLeft, ChevronRight, Heart
 } from "lucide-react";
 
-export default function EnhancedGallery() {
+export default function Gallery() {
   const [viewMode, setViewMode] = useState("grid");
   const [selectedImage, setSelectedImage] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,6 +14,7 @@ export default function EnhancedGallery() {
   const [darkMode, setDarkMode] = useState(false);
   const [likedImages, setLikedImages] = useState({});
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,15 +23,6 @@ export default function EnhancedGallery() {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    try {
-      const saved = window.localStorage?.getItem('galleryLikes');
-      if (saved) setLikedImages(JSON.parse(saved));
-    } catch (e) {
-      // Storage not available, use memory only
-    }
   }, []);
 
   const scrollToTop = () => {
@@ -42,11 +35,6 @@ export default function EnhancedGallery() {
       [id]: !likedImages[id]
     };
     setLikedImages(newLikes);
-    try {
-      window.localStorage?.setItem('galleryLikes', JSON.stringify(newLikes));
-    } catch (e) {
-      // Storage not available
-    }
   };
 
   const galleryImages = [
@@ -126,6 +114,7 @@ export default function EnhancedGallery() {
 
   const navItems = [
     { name: 'Home', path: '/' },
+    { name: 'Services', path: '/services' },
     { name: 'Gallery', path: '/gallery' },
     { name: 'About Us', path: '/about' },
     { name: 'Contacts', path: '/contacts' }
@@ -190,6 +179,11 @@ export default function EnhancedGallery() {
         .animate-fade-in {
           animation: fadeIn 0.6s ease-out;
         }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
       `}</style>
 
       {/* NAVBAR */}
@@ -204,27 +198,29 @@ export default function EnhancedGallery() {
       }`}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-20 items-center justify-between">
-            <a href="/" className="flex items-center group">
+            <Link to="/" className="flex items-center group">
               <h1 className="text-2xl md:text-3xl font-bold gradient-text transition-transform duration-300 group-hover:scale-105">
                 🌿 The Garden Co.
               </h1>
-            </a>
+            </Link>
 
-            <nav className="hidden md:block">
+            <nav className="hidden lg:block">
               <div className="flex items-center space-x-8">
                 {navItems.map((item) => (
-                  <a
+                  <Link
                     key={item.path}
-                    href={item.path}
+                    to={item.path}
                     className={`relative font-medium transition-all duration-300 group ${
-                      darkMode
-                        ? 'text-gray-300 hover:text-[#56DFCF]'
-                        : 'text-gray-700 hover:text-[#0ABAB5]'
+                      location.pathname === item.path
+                        ? darkMode ? 'text-[#56DFCF]' : 'text-[#0ABAB5]'
+                        : darkMode ? 'text-gray-300 hover:text-[#56DFCF]' : 'text-gray-700 hover:text-[#0ABAB5]'
                     }`}
                   >
                     {item.name}
-                    <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-[#0ABAB5] to-[#56DFCF] transition-all duration-300 w-0 group-hover:w-full`}></span>
-                  </a>
+                    <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-[#0ABAB5] to-[#56DFCF] transition-all duration-300 ${
+                      location.pathname === item.path ? 'w-full' : 'w-0 group-hover:w-full'
+                    }`}></span>
+                  </Link>
                 ))}
               </div>
             </nav>
@@ -241,7 +237,7 @@ export default function EnhancedGallery() {
                 {darkMode ? <Sun size={24} /> : <Moon size={24} />}
               </button>
 
-              <div className="md:hidden">
+              <div className="lg:hidden">
                 <button
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                   className={`p-2 rounded-xl transition-all duration-300 ${
@@ -257,24 +253,28 @@ export default function EnhancedGallery() {
           </div>
 
           {isMenuOpen && (
-            <div className="md:hidden pb-4">
+            <div className="lg:hidden pb-4">
               <div className={`backdrop-blur-xl rounded-2xl mb-4 overflow-hidden transition-colors duration-300 ${
                 darkMode ? 'bg-gray-800/95' : 'bg-white/95'
               }`}>
                 <div className="p-6 space-y-2">
                   {navItems.map((item) => (
-                    <a
+                    <Link
                       key={item.path}
-                      href={item.path}
+                      to={item.path}
                       className={`block px-4 py-3 font-medium rounded-xl transition-all duration-300 ${
-                        darkMode
-                          ? 'text-gray-300 hover:text-[#56DFCF] hover:bg-gray-700'
-                          : 'text-gray-700 hover:text-[#0ABAB5] hover:bg-[#ADEED9]/20'
+                        location.pathname === item.path
+                          ? darkMode 
+                            ? 'text-[#56DFCF] bg-gradient-to-r from-gray-800 to-gray-700'
+                            : 'text-[#0ABAB5] bg-gradient-to-r from-[#ADEED9]/30 to-[#56DFCF]/20'
+                          : darkMode
+                            ? 'text-gray-300 hover:text-[#56DFCF] hover:bg-gray-700'
+                            : 'text-gray-700 hover:text-[#0ABAB5] hover:bg-[#ADEED9]/20'
                       }`}
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {item.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </div>
@@ -359,7 +359,9 @@ export default function EnhancedGallery() {
                     setSelectedImage(image);
                     setCurrentImageIndex(idx);
                   }}
-                  className={`group relative overflow-hidden rounded-3xl shadow-lg cursor-pointer transition-all duration-500 hover:scale-105 hover:shadow-2xl animate-fade-in-up`}
+                  className={`group relative overflow-hidden rounded-3xl shadow-lg cursor-pointer transition-all duration-500 hover:scale-105 hover:shadow-2xl animate-fade-in-up ${
+                    darkMode ? 'border-2 border-gray-800' : ''
+                  }`}
                   style={{ animationDelay: `${idx * 0.1}s`, opacity: 0 }}
                 >
                   <img
@@ -407,9 +409,11 @@ export default function EnhancedGallery() {
                     setSelectedImage(image);
                     setCurrentImageIndex(idx);
                   }}
-                  className={`group ${
-                    darkMode ? 'bg-gray-900' : 'bg-white'
-                  } rounded-3xl shadow-lg overflow-hidden transition-all duration-500 hover:shadow-2xl cursor-pointer animate-fade-in-up`}
+                  className={`group rounded-3xl shadow-lg overflow-hidden transition-all duration-500 hover:shadow-2xl cursor-pointer animate-fade-in-up ${
+                    darkMode
+                      ? 'bg-gray-900 border-2 border-gray-800'
+                      : 'bg-white'
+                  }`}
                   style={{ animationDelay: `${idx * 0.1}s`, opacity: 0 }}
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -480,7 +484,7 @@ export default function EnhancedGallery() {
       {selectedImage && (
         <div
           className={`fixed inset-0 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in transition-colors duration-300 ${
-            darkMode ? 'bg-black/90' : 'bg-black/90'
+            darkMode ? 'bg-black/95' : 'bg-black/90'
           }`}
           onClick={() => setSelectedImage(null)}
         >
@@ -493,15 +497,15 @@ export default function EnhancedGallery() {
 
           <button
             onClick={handlePrevImage}
-            className="absolute left-6 p-3 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all duration-300 hover:scale-110"
+            className="absolute left-6 p-3 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all duration-300 hover:scale-110 z-10"
           >
             <ChevronLeft className="h-6 w-6" />
           </button>
 
           <div
-            className={`max-w-6xl w-full ${
+            className={`max-w-6xl w-full rounded-3xl overflow-hidden shadow-2xl animate-fade-in transition-colors ${
               darkMode ? 'bg-gray-900' : 'bg-white'
-            } rounded-3xl overflow-hidden shadow-2xl animate-fade-in`}
+            }`}
             onClick={(e) => e.stopPropagation()}
           >
             <img
@@ -536,7 +540,7 @@ export default function EnhancedGallery() {
 
           <button
             onClick={handleNextImage}
-            className="absolute right-6 p-3 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all duration-300 hover:scale-110"
+            className="absolute right-6 p-3 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all duration-300 hover:scale-110 z-10"
           >
             <ChevronRight className="h-6 w-6" />
           </button>
@@ -554,11 +558,11 @@ export default function EnhancedGallery() {
       )}
 
       {/* FOOTER */}
-      <footer className={`transition-colors duration-300 ${
+      <footer className={`transition-colors duration-300 text-white py-20 ${
         darkMode
           ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
           : 'bg-gradient-to-br from-gray-900 via-[#0ABAB5]/90 to-[#56DFCF]/80'
-      } text-white py-20`}>
+      }`}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4 mb-12">
             <div>
@@ -575,12 +579,12 @@ export default function EnhancedGallery() {
               <ul className="space-y-3">
                 {navItems.map((item) => (
                   <li key={item.path}>
-                    <a
-                      href={item.path}
+                    <Link
+                      to={item.path}
                       className="text-gray-200 hover:text-white transition-all duration-300 hover:translate-x-2 inline-block"
                     >
                       → {item.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

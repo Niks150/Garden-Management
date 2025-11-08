@@ -9,7 +9,10 @@ import {
   MessageSquare,
   Menu,
   X,
-  ArrowUp
+  ArrowUp,
+  Moon,
+  Sun,
+  CheckCircle
 } from "lucide-react";
 
 export default function Contacts() {
@@ -24,6 +27,7 @@ export default function Contacts() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -41,6 +45,7 @@ export default function Contacts() {
 
   const navItems = [
     { name: 'Home', path: '/' },
+    { name: 'Services', path: '/services' },
     { name: 'Gallery', path: '/gallery' },
     { name: 'About Us', path: '/about' },
     { name: 'Contacts', path: '/contacts' }
@@ -89,7 +94,9 @@ export default function Contacts() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className={`min-h-screen transition-colors duration-300 ${
+      darkMode ? 'bg-gray-950 text-white' : 'bg-white text-gray-900'
+    }`}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap');
         
@@ -107,23 +114,58 @@ export default function Contacts() {
           -webkit-text-fill-color: transparent;
           background-clip: text;
         }
+
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(40px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        @keyframes slideInLeft {
+          from { opacity: 0; transform: translateX(-50px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+          from { opacity: 0; transform: translateX(50px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+
+        .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+        .animate-fade-in { animation: fadeIn 1s ease-out forwards; }
+        .animate-slide-in-left { animation: slideInLeft 0.8s ease-out forwards; }
+        .animate-slide-in-right { animation: slideInRight 0.8s ease-out forwards; }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
       `}</style>
 
       {/* NAVBAR */}
       <header className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-        scrollY > 50 
-          ? 'bg-white/95 backdrop-blur-xl shadow-2xl shadow-[#0ABAB5]/5' 
-          : 'bg-white/80 backdrop-blur-md'
+        darkMode
+          ? scrollY > 50 
+            ? 'bg-gray-900/95 backdrop-blur-xl shadow-2xl' 
+            : 'bg-gray-900/80 backdrop-blur-md'
+          : scrollY > 50 
+            ? 'bg-white/95 backdrop-blur-xl shadow-2xl shadow-[#0ABAB5]/5' 
+            : 'bg-white/80 backdrop-blur-md'
       }`}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-20 items-center justify-between">
             <Link to="/" className="flex items-center group">
               <h1 className="text-2xl md:text-3xl font-bold gradient-text transition-transform duration-300 group-hover:scale-105">
-                The Garden Company
+                🌿 The Garden Co.
               </h1>
             </Link>
 
-            <nav className="hidden md:block">
+            <nav className="hidden lg:block">
               <div className="flex items-center space-x-8">
                 {navItems.map((item) => (
                   <Link
@@ -131,8 +173,8 @@ export default function Contacts() {
                     to={item.path}
                     className={`relative font-medium transition-all duration-300 group ${
                       location.pathname === item.path
-                        ? 'text-[#0ABAB5]'
-                        : 'text-gray-700 hover:text-[#0ABAB5]'
+                        ? darkMode ? 'text-[#56DFCF]' : 'text-[#0ABAB5]'
+                        : darkMode ? 'text-gray-300 hover:text-[#56DFCF]' : 'text-gray-700 hover:text-[#0ABAB5]'
                     }`}
                   >
                     {item.name}
@@ -144,19 +186,38 @@ export default function Contacts() {
               </div>
             </nav>
 
-            <div className="md:hidden">
+            <div className="flex items-center gap-4">
               <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-2 rounded-xl text-gray-700 hover:text-[#0ABAB5] hover:bg-[#ADEED9]/20 transition-all duration-300"
+                onClick={() => setDarkMode(!darkMode)}
+                className={`p-3 rounded-xl transition-all duration-300 ${
+                  darkMode
+                    ? 'bg-gray-800 text-yellow-400 hover:bg-gray-700'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
               >
-                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                {darkMode ? <Sun size={24} /> : <Moon size={24} />}
               </button>
+
+              <div className="lg:hidden">
+                <button
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  className={`p-2 rounded-xl transition-all duration-300 ${
+                    darkMode
+                      ? 'text-gray-300 hover:text-[#56DFCF] hover:bg-gray-800'
+                      : 'text-gray-700 hover:text-[#0ABAB5] hover:bg-[#ADEED9]/20'
+                  }`}
+                >
+                  {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                </button>
+              </div>
             </div>
           </div>
 
           {isMenuOpen && (
-            <div className="md:hidden">
-              <div className="bg-white/95 backdrop-blur-xl shadow-2xl rounded-2xl mb-4 overflow-hidden">
+            <div className="lg:hidden">
+              <div className={`backdrop-blur-xl shadow-2xl rounded-2xl mb-4 overflow-hidden transition-colors duration-300 ${
+                darkMode ? 'bg-gray-800/95' : 'bg-white/95'
+              }`}>
                 <div className="p-6 space-y-2">
                   {navItems.map((item) => (
                     <Link
@@ -164,8 +225,12 @@ export default function Contacts() {
                       to={item.path}
                       className={`block px-4 py-3 font-medium rounded-xl transition-all duration-300 ${
                         location.pathname === item.path
-                          ? 'text-[#0ABAB5] bg-gradient-to-r from-[#ADEED9]/30 to-[#56DFCF]/20'
-                          : 'text-gray-700 hover:text-[#0ABAB5] hover:bg-[#ADEED9]/20'
+                          ? darkMode 
+                            ? 'text-[#56DFCF] bg-gradient-to-r from-gray-800 to-gray-700'
+                            : 'text-[#0ABAB5] bg-gradient-to-r from-[#ADEED9]/30 to-[#56DFCF]/20'
+                          : darkMode
+                            ? 'text-gray-300 hover:text-[#56DFCF] hover:bg-gray-700'
+                            : 'text-gray-700 hover:text-[#0ABAB5] hover:bg-[#ADEED9]/20'
                       }`}
                       onClick={() => setIsMenuOpen(false)}
                     >
@@ -180,17 +245,27 @@ export default function Contacts() {
       </header>
 
       {/* Header Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-[#ADEED9]/30 via-[#56DFCF]/10 to-white">
+      <section className={`pt-32 pb-20 transition-colors duration-300 ${
+        darkMode
+          ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
+          : 'bg-gradient-to-br from-[#ADEED9]/30 via-[#56DFCF]/10 to-white'
+      }`}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <div className="inline-block px-6 py-2 bg-[#ADEED9]/40 rounded-full text-[#0ABAB5] text-sm font-semibold mb-6">
+            <div className={`inline-block px-6 py-2 rounded-full text-sm font-semibold mb-6 transition-colors duration-300 ${
+              darkMode
+                ? 'bg-gray-800 text-[#56DFCF]'
+                : 'bg-[#ADEED9]/40 text-[#0ABAB5]'
+            }`}>
               Let's Connect
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">
               Get In <span className="font-serif italic gradient-text">Touch</span>
             </h1>
             <div className="w-24 h-1 bg-gradient-to-r from-[#0ABAB5] to-[#56DFCF] mx-auto mb-8" />
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className={`text-xl max-w-2xl mx-auto transition-colors duration-300 ${
+              darkMode ? 'text-gray-300' : 'text-gray-600'
+            }`}>
               We'd love to hear from you! Reach out to us for any inquiries about our garden services
             </p>
           </div>
@@ -198,29 +273,43 @@ export default function Contacts() {
       </section>
 
       {/* Contact Info Cards */}
-      <section className="py-20 bg-white">
+      <section className={`py-20 transition-colors duration-300 ${
+        darkMode ? 'bg-gray-950' : 'bg-white'
+      }`}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
             {contactInfo.map((info, index) => (
               <div
                 key={index}
-                className="group bg-gradient-to-br from-[#ADEED9]/20 to-[#56DFCF]/10 rounded-3xl p-8 text-center transition-all duration-500 hover:scale-105 hover:shadow-2xl cursor-pointer"
+                className={`group rounded-3xl p-8 text-center transition-all duration-500 hover:scale-105 hover:shadow-2xl cursor-pointer animate-fade-in-up ${
+                  darkMode
+                    ? 'bg-gray-900 border-2 border-gray-800 hover:border-[#0ABAB5]/50'
+                    : 'bg-gradient-to-br from-[#ADEED9]/20 to-[#56DFCF]/10 border-2 border-transparent hover:border-[#0ABAB5]/30'
+                }`}
+                style={{
+                  animationDelay: `${index * 0.1}s`,
+                  opacity: 0
+                }}
               >
-                <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-[#0ABAB5] to-[#56DFCF] text-white rounded-2xl mb-6 transition-all duration-500 group-hover:scale-110 group-hover:rotate-12">
+                <div className={`inline-flex items-center justify-center w-20 h-20 text-white rounded-2xl mb-6 transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 bg-gradient-to-r from-[#0ABAB5] to-[#56DFCF]`}>
                   {info.icon}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{info.title}</h3>
+                <h3 className="text-xl font-bold mb-3">{info.title}</h3>
                 {info.link ? (
                   <a
                     href={info.link}
-                    className="text-gray-600 hover:text-[#0ABAB5] transition-colors duration-300 text-lg"
+                    className={`transition-colors duration-300 text-lg hover:text-[#0ABAB5] ${
+                      darkMode ? 'text-gray-300' : 'text-gray-600'
+                    }`}
                     target={info.link.startsWith('http') ? '_blank' : undefined}
                     rel={info.link.startsWith('http') ? 'noopener noreferrer' : undefined}
                   >
                     {info.details}
                   </a>
                 ) : (
-                  <p className="text-gray-600 text-lg">{info.details}</p>
+                  <p className={`text-lg transition-colors duration-300 ${
+                    darkMode ? 'text-gray-300' : 'text-gray-600'
+                  }`}>{info.details}</p>
                 )}
               </div>
             ))}
@@ -229,33 +318,43 @@ export default function Contacts() {
       </section>
 
       {/* Contact Form Section */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
+      <section className={`py-20 transition-colors duration-300 ${
+        darkMode
+          ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
+          : 'bg-gradient-to-br from-gray-50 to-white'
+      }`}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             {/* Contact Form */}
-            <div className="bg-white rounded-3xl shadow-2xl p-10">
+            <div className={`rounded-3xl shadow-2xl p-10 transition-colors duration-300 ${
+              darkMode ? 'bg-gray-900 border-2 border-gray-800' : 'bg-white'
+            }`}>
               <div className="flex items-center gap-4 mb-8">
                 <div className="w-14 h-14 bg-gradient-to-r from-[#0ABAB5] to-[#56DFCF] rounded-2xl flex items-center justify-center">
                   <MessageSquare className="h-7 w-7 text-white" />
                 </div>
-                <h2 className="text-3xl font-bold text-gray-900">Send Us a Message</h2>
+                <h2 className="text-3xl font-bold">Send Us a Message</h2>
               </div>
               
               {submitted ? (
-                <div className="text-center py-16">
-                  <div className="w-24 h-24 bg-[#ADEED9]/30 rounded-full flex items-center justify-center mx-auto mb-8">
-                    <svg className="w-12 h-12 text-[#0ABAB5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                    </svg>
+                <div className="text-center py-16 animate-fade-in">
+                  <div className={`w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 transition-colors duration-300 ${
+                    darkMode ? 'bg-gray-800' : 'bg-[#ADEED9]/30'
+                  }`}>
+                    <CheckCircle className="w-12 h-12 text-[#0ABAB5]" />
                   </div>
-                  <h3 className="text-3xl font-bold text-gray-900 mb-4">Message Sent!</h3>
-                  <p className="text-gray-600 text-lg">Thank you for contacting us. We'll get back to you within 24 hours.</p>
+                  <h3 className="text-3xl font-bold mb-4">Message Sent!</h3>
+                  <p className={`text-lg transition-colors duration-300 ${
+                    darkMode ? 'text-gray-300' : 'text-gray-600'
+                  }`}>Thank you for contacting us. We'll get back to you within 24 hours.</p>
                 </div>
               ) : (
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-2">
+                      <label className={`block text-sm font-bold mb-2 transition-colors duration-300 ${
+                        darkMode ? 'text-gray-300' : 'text-gray-700'
+                      }`}>
                         Full Name *
                       </label>
                       <input
@@ -264,11 +363,17 @@ export default function Contacts() {
                         value={formData.name}
                         onChange={handleInputChange}
                         placeholder="John Doe"
-                        className="w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 transition-all duration-300 focus:border-[#0ABAB5] focus:ring-4 focus:ring-[#0ABAB5]/10 hover:border-[#0ABAB5]/50 outline-none"
+                        className={`w-full rounded-xl border-2 px-4 py-3.5 transition-all duration-300 outline-none ${
+                          darkMode
+                            ? 'bg-gray-800 border-gray-700 focus:border-[#0ABAB5] focus:ring-4 focus:ring-[#0ABAB5]/10 hover:border-[#0ABAB5]/50 text-white placeholder-gray-500'
+                            : 'border-gray-200 focus:border-[#0ABAB5] focus:ring-4 focus:ring-[#0ABAB5]/10 hover:border-[#0ABAB5]/50'
+                        }`}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-2">
+                      <label className={`block text-sm font-bold mb-2 transition-colors duration-300 ${
+                        darkMode ? 'text-gray-300' : 'text-gray-700'
+                      }`}>
                         Email Address *
                       </label>
                       <input
@@ -277,14 +382,20 @@ export default function Contacts() {
                         value={formData.email}
                         onChange={handleInputChange}
                         placeholder="john@example.com"
-                        className="w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 transition-all duration-300 focus:border-[#0ABAB5] focus:ring-4 focus:ring-[#0ABAB5]/10 hover:border-[#0ABAB5]/50 outline-none"
+                        className={`w-full rounded-xl border-2 px-4 py-3.5 transition-all duration-300 outline-none ${
+                          darkMode
+                            ? 'bg-gray-800 border-gray-700 focus:border-[#0ABAB5] focus:ring-4 focus:ring-[#0ABAB5]/10 hover:border-[#0ABAB5]/50 text-white placeholder-gray-500'
+                            : 'border-gray-200 focus:border-[#0ABAB5] focus:ring-4 focus:ring-[#0ABAB5]/10 hover:border-[#0ABAB5]/50'
+                        }`}
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-2">
+                      <label className={`block text-sm font-bold mb-2 transition-colors duration-300 ${
+                        darkMode ? 'text-gray-300' : 'text-gray-700'
+                      }`}>
                         Phone Number
                       </label>
                       <input
@@ -293,18 +404,28 @@ export default function Contacts() {
                         value={formData.phone}
                         onChange={handleInputChange}
                         placeholder="+91 98765 43210"
-                        className="w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 transition-all duration-300 focus:border-[#0ABAB5] focus:ring-4 focus:ring-[#0ABAB5]/10 hover:border-[#0ABAB5]/50 outline-none"
+                        className={`w-full rounded-xl border-2 px-4 py-3.5 transition-all duration-300 outline-none ${
+                          darkMode
+                            ? 'bg-gray-800 border-gray-700 focus:border-[#0ABAB5] focus:ring-4 focus:ring-[#0ABAB5]/10 hover:border-[#0ABAB5]/50 text-white placeholder-gray-500'
+                            : 'border-gray-200 focus:border-[#0ABAB5] focus:ring-4 focus:ring-[#0ABAB5]/10 hover:border-[#0ABAB5]/50'
+                        }`}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-2">
+                      <label className={`block text-sm font-bold mb-2 transition-colors duration-300 ${
+                        darkMode ? 'text-gray-300' : 'text-gray-700'
+                      }`}>
                         Subject *
                       </label>
                       <select
                         name="subject"
                         value={formData.subject}
                         onChange={handleInputChange}
-                        className="w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 transition-all duration-300 focus:border-[#0ABAB5] focus:ring-4 focus:ring-[#0ABAB5]/10 hover:border-[#0ABAB5]/50 outline-none"
+                        className={`w-full rounded-xl border-2 px-4 py-3.5 transition-all duration-300 outline-none ${
+                          darkMode
+                            ? 'bg-gray-800 border-gray-700 focus:border-[#0ABAB5] focus:ring-4 focus:ring-[#0ABAB5]/10 hover:border-[#0ABAB5]/50 text-white'
+                            : 'border-gray-200 focus:border-[#0ABAB5] focus:ring-4 focus:ring-[#0ABAB5]/10 hover:border-[#0ABAB5]/50'
+                        }`}
                       >
                         <option value="">Select a subject</option>
                         <option value="general">General Inquiry</option>
@@ -316,7 +437,9 @@ export default function Contacts() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-bold text-gray-700 mb-2">
+                    <label className={`block text-sm font-bold mb-2 transition-colors duration-300 ${
+                      darkMode ? 'text-gray-300' : 'text-gray-700'
+                    }`}>
                       Message *
                     </label>
                     <textarea
@@ -325,7 +448,11 @@ export default function Contacts() {
                       onChange={handleInputChange}
                       rows={6}
                       placeholder="Tell us about your garden project or inquiry..."
-                      className="w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 transition-all duration-300 focus:border-[#0ABAB5] focus:ring-4 focus:ring-[#0ABAB5]/10 hover:border-[#0ABAB5]/50 outline-none resize-none"
+                      className={`w-full rounded-xl border-2 px-4 py-3.5 transition-all duration-300 outline-none resize-none ${
+                        darkMode
+                          ? 'bg-gray-800 border-gray-700 focus:border-[#0ABAB5] focus:ring-4 focus:ring-[#0ABAB5]/10 hover:border-[#0ABAB5]/50 text-white placeholder-gray-500'
+                          : 'border-gray-200 focus:border-[#0ABAB5] focus:ring-4 focus:ring-[#0ABAB5]/10 hover:border-[#0ABAB5]/50'
+                      }`}
                     />
                   </div>
 
@@ -343,8 +470,10 @@ export default function Contacts() {
             {/* Additional Info */}
             <div className="space-y-8">
               {/* Why Contact Us */}
-              <div className="bg-white rounded-3xl shadow-2xl p-10">
-                <h3 className="text-2xl font-bold text-gray-900 mb-8">Why Choose Us?</h3>
+              <div className={`rounded-3xl shadow-2xl p-10 transition-colors duration-300 ${
+                darkMode ? 'bg-gray-900 border-2 border-gray-800' : 'bg-white'
+              }`}>
+                <h3 className="text-2xl font-bold mb-8">Why Choose Us?</h3>
                 <div className="space-y-6">
                   {[
                     { title: "Fast Response", desc: "We respond to all inquiries within 24 hours" },
@@ -352,13 +481,26 @@ export default function Contacts() {
                     { title: "Free Consultation", desc: "Get a free quote and site evaluation" },
                     { title: "Quality Service", desc: "100% satisfaction guaranteed" }
                   ].map((item, index) => (
-                    <div key={index} className="flex items-start gap-5 group hover:bg-[#ADEED9]/10 p-4 rounded-2xl transition-all duration-300 cursor-pointer">
-                      <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-[#0ABAB5] to-[#56DFCF] text-white rounded-xl flex items-center justify-center font-bold text-lg group-hover:scale-110 transition-transform duration-300">
+                    <div 
+                      key={index} 
+                      className={`flex items-start gap-5 group hover:scale-105 transition-all duration-300 cursor-pointer animate-fade-in-up ${
+                        darkMode
+                          ? 'hover:bg-gray-800'
+                          : 'hover:bg-[#ADEED9]/10'
+                      } p-4 rounded-2xl`}
+                      style={{
+                        animationDelay: `${index * 0.1}s`,
+                        opacity: 0
+                      }}
+                    >
+                      <div className={`flex-shrink-0 w-12 h-12 text-white rounded-xl flex items-center justify-center font-bold text-lg group-hover:scale-110 transition-transform duration-300 bg-gradient-to-r from-[#0ABAB5] to-[#56DFCF]`}>
                         {index + 1}
                       </div>
                       <div>
-                        <h4 className="font-bold text-gray-900 mb-2 text-lg">{item.title}</h4>
-                        <p className="text-gray-600">{item.desc}</p>
+                        <h4 className="font-bold mb-2 text-lg">{item.title}</h4>
+                        <p className={`transition-colors duration-300 ${
+                          darkMode ? 'text-gray-400' : 'text-gray-600'
+                        }`}>{item.desc}</p>
                       </div>
                     </div>
                   ))}
@@ -366,7 +508,7 @@ export default function Contacts() {
               </div>
 
               {/* WhatsApp Quick Contact */}
-              <div className="bg-gradient-to-br from-[#0ABAB5] to-[#56DFCF] rounded-3xl shadow-2xl p-10 text-white">
+              <div className="bg-gradient-to-br from-[#0ABAB5] to-[#56DFCF] rounded-3xl shadow-2xl p-10 text-white animate-fade-in-up delay-400">
                 <h3 className="text-2xl font-bold mb-4">Prefer to Chat?</h3>
                 <p className="mb-8 opacity-90 text-lg">Get instant responses via WhatsApp</p>
                 <a
@@ -387,12 +529,16 @@ export default function Contacts() {
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-gradient-to-br from-gray-900 via-[#0ABAB5]/90 to-[#56DFCF]/80 text-white py-20">
+      <footer className={`text-white py-20 transition-colors duration-300 ${
+        darkMode
+          ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
+          : 'bg-gradient-to-br from-gray-900 via-[#0ABAB5]/90 to-[#56DFCF]/80'
+      }`}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
             <div className="lg:col-span-2">
               <h3 className="text-3xl font-bold mb-4 gradient-text">
-                The Garden Company
+                🌿 The Garden Co.
               </h3>
               <p className="mb-6 text-gray-200 leading-relaxed max-w-md">
                 Professional garden maintenance and landscaping services creating beautiful outdoor spaces since 2008.
@@ -427,6 +573,15 @@ export default function Contacts() {
                     </a>
                   </div>
                 </li>
+                <li className="flex items-start gap-3">
+                  <Mail className="h-5 w-5 mt-1 flex-shrink-0" />
+                  <div>
+                    <div className="text-sm text-gray-300">Email</div>
+                    <a href="mailto:info@thegardenco.com" className="text-white hover:text-[#ADEED9] transition-colors">
+                      info@thegardenco.com
+                    </a>
+                  </div>
+                </li>
               </ul>
             </div>
           </div>
@@ -443,7 +598,7 @@ export default function Contacts() {
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-[#0ABAB5] to-[#56DFCF] text-white rounded-full shadow-2xl hover:scale-110 transition-all duration-300 flex items-center justify-center z-40 group"
+          className="fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-[#0ABAB5] to-[#56DFCF] text-white rounded-full shadow-2xl hover:scale-110 transition-all duration-300 flex items-center justify-center z-40 group animate-fade-in"
         >
           <ArrowUp className="h-6 w-6 group-hover:-translate-y-1 transition-transform duration-300" />
         </button>
