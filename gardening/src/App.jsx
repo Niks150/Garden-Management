@@ -1,8 +1,9 @@
-import { BrowserRouter as Router, Routes, Route, createContext, useState, useContext } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { createContext, useState, useContext } from 'react';
 import Home from './components/Home/Home';
 import Gallery from './components/Gallery/Gallery';
 import Contacts from './components/Contacts/contacts';
-import Services from './components/services/services';
+import Services from './components/Services/services';
 import About from './components/About/about';
 
 // Create Dark Mode Context
@@ -17,19 +18,11 @@ export const useDarkMode = () => {
 };
 
 export const DarkModeProvider = ({ children }) => {
-  const [darkMode, setDarkMode] = useState(() => {
-    // Load from localStorage for persistence
-    const saved = localStorage.getItem('darkMode');
-    return saved ? JSON.parse(saved) : false;
-  });
+  // FIXED: Remove localStorage completely
+  const [darkMode, setDarkMode] = useState(false);
 
   const toggleDarkMode = () => {
-    setDarkMode(prev => {
-      const newValue = !prev;
-      // Save to localStorage
-      localStorage.setItem('darkMode', JSON.stringify(newValue));
-      return newValue;
-    });
+    setDarkMode(prev => !prev);
   };
 
   return (

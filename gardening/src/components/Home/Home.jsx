@@ -5,7 +5,7 @@ import {
   Phone, Mail, MapPin, Heart, Zap, Shield, Moon, Sun
 } from "lucide-react";
 import { Link } from 'react-router-dom';
-import { useDarkMode } from "../../App";
+import { useDarkMode } from '../../App';
 
 export default function Home() {
   const { darkMode, toggleDarkMode } = useDarkMode();
